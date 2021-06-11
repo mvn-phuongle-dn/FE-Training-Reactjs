@@ -41,6 +41,7 @@
   margin: 0px;
   padding: 0px;
   border: none;
+  outline: none;
 }
 
 ul {
@@ -56,6 +57,21 @@ li {
 a {
   text-decoration: none;
   color: #0d1d25;
+}
+
+button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #616060;
+}
+
+button:hover { 
+  cursor: pointer;
+  background-color: #b3b4b6;
+}
+
+button .active {
+  background-color: #616060;
 }
 
 .col-3 {
@@ -75,6 +91,10 @@ a {
 .img-logo {
   width: 64px;
   height: 64px;
+}
+
+.page-header {
+  background-color: #b3b4b6;
 }
 
 .header-wrap {
@@ -97,10 +117,13 @@ a {
 }
 
 .page-main {
+  min-height: 250px;
   border-top: 1px solid #e9e9e9;
   border-bottom: 1px solid #e9e9e9;
-  background-color: #282c34;
   padding: 50px 0;
+}
+
+.main-wrap {
 }
 
 .title-app {
@@ -115,6 +138,10 @@ a {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.page-footer {
+  background-color: #b3b4b6;
 }
 
 .footer-list {
@@ -147,4 +174,43 @@ a {
 
 .footer-card-link i {
   margin-right: 10px;
+}
+
+.circle {
+  margin-top: 10px;
+  border-radius: 50%;
+  border: 1px solid #616060;
+}
+
+.flex-center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.list-circle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.circle-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-wrap {
+  margin-bottom: 50px;
+}
+
+.mr-15 {
+  margin-right: 15px;
 }
