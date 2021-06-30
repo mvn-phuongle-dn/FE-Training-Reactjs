@@ -1,62 +1,54 @@
-import React, { Component } from 'react';
-import UserRow from './UserRow';
-class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: {
-        email: '',
-        password: '',
-        gender: '0',
-        country: '',
-        other: '',
-      },
-      users: []
-    }
-    this.id = 0;
-  }
+import React, { useState } from 'react';
+import { UserRow } from './UserRow';
 
-  handleChange = (e) => {
+let id = 0;
+export function Main() {
+  const [users, setUsers] = useState([]);
+
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+    gender: '0',
+    country: '',
+    other: '',
+  });
+
+  function handleChange (e) {
     e.preventDefault();
-    const value = e.target.value;
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     const name = e.target.name;
-    this.setState(prev => ({
-      form: {
-        ...prev.form,
-        [name]: value
-      }
-    }));
+    setForm({
+      ...form,
+      [name]: value
+    })
   }
 
-  handleSubmit = (e) => {
+  function handleSubmit (e) {
     e.preventDefault();
-    this.id = this.id + 1;
-    const newUser = {...this.state.form, id: this.id};
-    this.setState(prev => ({ users: [...prev.users, newUser] }))
-    console.log('users', this.props.users);
+    id += 1;
+    const newUser = {...form, id};
+    setUsers([...users, newUser]);
   }
 
-  handleDelete = (id) => {
-    this.setState(prev => ({ users: prev.users.filter(item => item.id !== id) }))
+  function handleDelete (id) {
+    setUsers(users.filter(item => item.id !== id))
   }
 
-  render() {
-    const { form, users }  = this.state;
     return (
       <main className="page-main">
         <div className="container flex-center">
           <form className="form-wrap mw-px-420 flex-start">
             <div className="form-group text-left">
               <label>Email Address</label>
-              <input type="text" name="email" onChange={this.handleChange}/>
+              <input type="text" name="email" onChange={handleChange}/>
             </div>
             <div className="form-group text-left">
               <label>Password</label>
-              <input type="password" name="password" onChange={this.handleChange}/>
+              <input type="password" name="password" onChange={handleChange}/>
             </div>
             <div className="form-group text-left">
               <label>Your country</label>
-              <select name="country" onChange={this.handleChange}>
+              <select name="country" onChange={handleChange}>
                 <option value="">Please choose</option>
                 <option value="VietNam">VietNam</option>
                 <option value="England">England</option>
@@ -72,18 +64,18 @@ class Main extends Component {
               <label>Gender</label>
               <div className="radio-group">
                 <label>
-                  <input type="radio" value="0" name="gender" onChange={this.handleChange}/> Male
+                  <input type="radio" value="0" name="gender" onChange={handleChange}/> Male
                 </label>
                 <label>
-                  <input type="radio" value="1" name="gender" onChange={this.handleChange}/> Female
+                  <input type="radio" value="1" name="gender" onChange={handleChange}/> Female
                 </label>
               </div>
             </div>
             <div className="form-group text-left">
               <label>Other information</label>
-              <textarea name="other" onChange={this.handleChange}></textarea>
+              <textarea name="other" onChange={handleChange}></textarea>
             </div>
-            <button className="w-100 btn-primary" onClick={this.handleSubmit}>Submit</button>
+            <button className="w-100 btn-primary" onClick={handleSubmit}>Submit</button>
           </form>
           <div className="">
             <h3 className="text-left mb-24">List User</h3>
@@ -100,7 +92,7 @@ class Main extends Component {
               </thead>
               <tbody>
                 {
-                  users.map(item => <UserRow key={item.id} data={item} onDelete={this.handleDelete}/>)
+                  users.map(item => <UserRow key={item.id} data={item} onDelete={handleDelete}/>)
                 }
               </tbody>
             </table>
@@ -108,7 +100,5 @@ class Main extends Component {
         </div>
       </main>
     );
-  }
 }
 
-export default Main;
