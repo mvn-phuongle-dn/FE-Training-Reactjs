@@ -1,104 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserRow } from './UserRow';
 
 let id = 0;
 export function Main() {
   const [users, setUsers] = useState([]);
+  const pages = [1, 2, 3]
+  const [page, setPage] = useState(1);
 
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-    gender: '0',
-    country: '',
-    other: '',
-  });
+  useEffect(() => {
+    fetch(`https://reqres.in/api/users?page=${page}`).then(e => e.json())
+    .then(
+      e => {
+        setUsers(e.data)
+      }
+    )
+  }, [page])
 
-  function handleChange (e) {
-    e.preventDefault();
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    const name = e.target.name;
-    setForm({
-      ...form,
-      [name]: value
-    })
-  }
-
-  function handleSubmit (e) {
-    e.preventDefault();
-    id += 1;
-    const newUser = {...form, id};
-    setUsers([...users, newUser]);
-  }
-
-  function handleDelete (id) {
+  function handleDelete(id) {
     setUsers(users.filter(item => item.id !== id))
   }
 
-    return (
-      <main className="page-main">
-        <div className="container flex-center">
-          <form className="form-wrap mw-px-420 flex-start">
-            <div className="form-group text-left">
-              <label>Email Address</label>
-              <input type="text" name="email" onChange={handleChange}/>
-            </div>
-            <div className="form-group text-left">
-              <label>Password</label>
-              <input type="password" name="password" onChange={handleChange}/>
-            </div>
-            <div className="form-group text-left">
-              <label>Your country</label>
-              <select name="country" onChange={handleChange}>
-                <option value="">Please choose</option>
-                <option value="VietNam">VietNam</option>
-                <option value="England">England</option>
-                <option value="Japan">Japan</option>
-                <option value="America">America</option>
-                <option value="ThaiLand">ThaiLand</option>
-                <option value="Singapore">Singapore</option>
-                <option value="Canada">Canada</option>
-                <option value="Mexico">Mexico</option>
-              </select>
-            </div>
-            <div className="form-group text-left">
-              <label>Gender</label>
-              <div className="radio-group">
-                <label>
-                  <input type="radio" value="0" name="gender" onChange={handleChange}/> Male
-                </label>
-                <label>
-                  <input type="radio" value="1" name="gender" onChange={handleChange}/> Female
-                </label>
-              </div>
-            </div>
-            <div className="form-group text-left">
-              <label>Other information</label>
-              <textarea name="other" onChange={handleChange}></textarea>
-            </div>
-            <button className="w-100 btn-primary" onClick={handleSubmit}>Submit</button>
-          </form>
-          <div className="">
-            <h3 className="text-left mb-24">List User</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Email Address</th>
-                  <th>Gender</th>
-                  <th>Counthy</th>
-                  <th>Other</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  users.map(item => <UserRow key={item.id} data={item} onDelete={handleDelete}/>)
-                }
-              </tbody>
-            </table>
-          </div>
+  function handleChangePage(number) {
+    console.log(number);
+    if(number === 'prev' && page !== pages[0]) {
+      setPage(page - 1)
+    } else if (number === 'next' && page !== pages[pages.length-1]) {
+      setPage(page + 1)
+    } else if(number !== 'prev' && number !== 'next'){
+      setPage(number)
+    }
+  }
+
+  return (
+    <main className="page-main">
+      <div className="container">
+        <div className="one-col-center">
+          <h3 className="text-left mb-24">List User</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Email Address</th>
+                <th>Gender</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                users.map(item => <UserRow key={item.id} data={item} onDelete={handleDelete}/>)
+              }
+            </tbody>
+          </table>
+          <ul className="pagination mt-24">
+            <li className="page-item" onClick={() => handleChangePage(pages[0])}>
+              <span className={page === pages[0] ? "page-link txt-gray":"page-link pointer"}>
+                <i className="fad fa-chevron-double-left"></i>
+              </span>
+            </li>
+            <li className="page-item" onClick={() => handleChangePage('prev')}>
+              <span className={page === pages[0] ? "page-link txt-gray" : "page-link pointer"}>
+                <i className="fas fa-chevron-left"></i>
+              </span>
+            </li>
+            {
+              pages.map(item =>
+                <li className="page-item pointer" onClick={() => handleChangePage(item)}>
+                  <span className={ page === item ? "page-link link-text active" : "page-link link-text"}>{ item }</span>
+                </li>
+              )
+            }
+            <li className="page-item" onClick={() => handleChangePage('next')}>
+              <span className={page === pages[pages.length-1] ? "page-link txt-gray":"page-link pointer"}>
+                <i className="fas fa-chevron-right"></i>
+              </span>
+            </li>
+            <li className="page-item" onClick={() => handleChangePage(pages[pages.length-1])}>
+              <span className={page === pages[pages.length-1] ? "page-link txt-gray":"page-link pointer"}>
+                <i className="fad fa-chevron-double-right"></i>
+              </span>
+            </li>
+          </ul>
         </div>
-      </main>
-    );
+      </div>
+    </main>
+  );
 }
 

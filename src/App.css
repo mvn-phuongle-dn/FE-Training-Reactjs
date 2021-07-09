@@ -284,7 +284,7 @@ button .active {
 }
 
 .txt-gray {
-  color: #616060;
+  color: #a8a5a5;
 }
 
 input[type=text],
@@ -409,4 +409,26 @@ tr:nth-child(even) {
 .icon-delete:hover {
   color: #ce0606;
   transition: border-color 0.3s;
+}
+
+.one-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pagination .page-item .page-link {
+  padding: 5px 10px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.pagination .page-item .active {
+  background-color: #6ec3f5;
+}
+
+.mt-24 {
+  margin-top: 24px;
 }
