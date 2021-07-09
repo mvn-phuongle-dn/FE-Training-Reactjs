@@ -21,14 +21,7 @@ export function Main() {
   }
 
   function handleChangePage(number) {
-    console.log(number);
-    if(number === 'prev' && page !== pages[0]) {
-      setPage(page - 1)
-    } else if (number === 'next' && page !== pages[pages.length-1]) {
-      setPage(page + 1)
-    } else if(number !== 'prev' && number !== 'next'){
-      setPage(number)
-    }
+    setPage(number);
   }
 
   return (
@@ -59,7 +52,7 @@ export function Main() {
                 <i className="fad fa-chevron-double-left"></i>
               </span>
             </li>
-            <li className="page-item" onClick={() => handleChangePage('prev')}>
+            <li className="page-item" onClick={() => handleChangePage(page-1)}>
               <span className={page === pages[0] ? "page-link txt-gray" : "page-link pointer"}>
                 <i className="fas fa-chevron-left"></i>
               </span>
@@ -71,7 +64,7 @@ export function Main() {
                 </li>
               )
             }
-            <li className="page-item" onClick={() => handleChangePage('next')}>
+            <li className="page-item" onClick={() => handleChangePage(page+1)}>
               <span className={page === pages[pages.length-1] ? "page-link txt-gray":"page-link pointer"}>
                 <i className="fas fa-chevron-right"></i>
               </span>
