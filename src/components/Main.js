@@ -21,7 +21,9 @@ export function Main() {
   }
 
   function handleChangePage(number) {
-    setPage(number);
+    if(number >= pages[0] && number <= pages[pages.length-1]) {
+      setPage(number);
+    }
   }
 
   return (
@@ -59,7 +61,7 @@ export function Main() {
             </li>
             {
               pages.map(item =>
-                <li className="page-item pointer" onClick={() => handleChangePage(item)}>
+                <li className="page-item pointer" onClick={() => handleChangePage(item)} key={item}>
                   <span className={ page === item ? "page-link link-text active" : "page-link link-text"}>{ item }</span>
                 </li>
               )
