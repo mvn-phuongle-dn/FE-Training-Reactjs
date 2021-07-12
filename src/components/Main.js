@@ -35,10 +35,11 @@ export function Main() {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Email Address</th>
-                <th>Gender</th>
+                <th>Avatar</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Gender</th>
+                <th>Email Address</th>
                 <th>Action</th>
               </tr>
             </thead>
