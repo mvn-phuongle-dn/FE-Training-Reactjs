@@ -13,6 +13,7 @@
     }
     .active {
       background-color: #6ec3f5;
+      color: map-get($map: $color, $key: default);
     }
   }
 }

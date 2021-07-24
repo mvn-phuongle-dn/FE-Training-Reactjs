@@ -4,9 +4,10 @@ import Features from './pages/Features';
 import Auth from './pages/Auth';
 import Account from './pages/Account';
 import PrivateRoute from './core/guards/PrivateRoute';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 function App() {
+  const match = useRouteMatch('/products')
   return (
     <>
       <Header />

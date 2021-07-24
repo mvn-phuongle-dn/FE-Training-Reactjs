@@ -21,13 +21,13 @@ const Header = () => {
               <nav className="nav">
                 <ul className="nav-list">
                   <li className="nav-item">
-                    <NavLink to="/" className="nav-link" href="#">Home</NavLink>
+                    <NavLink exact activeClassName="active" to="/" className="nav-link" href="#">Home</NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/products" className="nav-link" href="#">Product</NavLink>
+                    <NavLink exact activeClassName="active" to="/products" className="nav-link" href="#">Product</NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/about-us" className="nav-link" href="#">About us</NavLink>
+                    <NavLink exact activeClassName="active" to="/about-us" className="nav-link" href="#">About us</NavLink>
                   </li>
                 </ul>
               </nav>
