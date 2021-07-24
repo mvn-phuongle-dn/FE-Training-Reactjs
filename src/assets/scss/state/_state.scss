@@ -1,0 +1,44 @@
+.section-title {
+  font-size: 24px;
+  padding-top: 50px;
+}
+
+.section-login {
+  // background-color: rgb(243, 232, 219);
+}
+
+.section-about-us, .section-account {
+  padding: 50px;
+}
+
+.fs-24 {
+  font-size: 24px;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.txt-gray {
+  color: #a8a5a5;
+}
+
+.text-group {
+  padding: 4px 0;
+  .title {
+    display: inline-block;
+    width: 120px;
+  }
+}
+
+.active {
+  color: map-get($map: $color, $key: primary);
+}
