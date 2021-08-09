@@ -2,13 +2,15 @@ import React from 'react';
 import logo from '../../assets/images/logo.png';
 import { NavLink, Link } from "react-router-dom";
 import useAuth from '../../hooks/useAuth';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const auth = useAuth();
-  console.log('user',auth.isLogged);
   const handleLogout = () => {
     auth.logout();
   }
+  const statusLogin = useSelector(state => state.login.value);
+  const countCart = useSelector(state => state.cart.value.length);
   return(
     <>
       <header className="page-header">
@@ -38,14 +40,15 @@ const Header = () => {
                   <a className="page-link" href="#"><i className="fas fa-user"></i></a>
                   <ul>
                     <li>
-                      {!auth.isLogged ? <Link to="/auth/login" className="page-link">Login <i className="fas fa-sign-in-alt"></i></Link> :
+                      {!statusLogin ? <Link to="/auth/login" className="page-link">Login <i className="fas fa-sign-in-alt"></i></Link> :
                       <Link onClick={handleLogout} className="page-link">Logout <i className="fas fa-sign-out-alt"></i></Link>}
                     </li>
                     <li><Link to="/account" className="page-link" href="#">My account</Link></li>
                   </ul>
                 </li>
-                <li className="menu-item">
+                <li className="menu-item cart-number-wrap">
                   <Link to="/" className="page-link" href="#">My cart <i className="fas fa-shopping-cart"></i></Link>
+                  {!!countCart && <span className="cart-number">{countCart}</span>}
                 </li>
               </ul>
             </div>

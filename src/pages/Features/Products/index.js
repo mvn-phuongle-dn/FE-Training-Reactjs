@@ -31,7 +31,7 @@ const Products = () => {
             products.map(e => (
               <li className="product-item col-4" key={e.id}>
                 <div className="product-wrap">
-                  <Link to="/product/e.id" className="product-image">
+                  <Link to={`/product/${e.id}`} className="product-image">
                     <img src={product1}/>
                   </Link>
                   <div className="product-card">

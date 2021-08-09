@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import HeroBanner from '../../../components/HeroBanner';
 import product1 from '../../../assets/images/product1.jpg';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart } from '../../../store/cartSlice'
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const products = [1,2,3,4,5,6,7,8]
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://reqres.in/api/products`).then(e => e.json())
+    .then(
+      e => {
+        setProducts(e.data)
+      }
+    )
+  }, []);
+  const handleAddProduct = (e, id) => {
+    e.preventDefault();
+    dispatch(addToCart(id));
+  }
   return(
     <>
       <HeroBanner />
@@ -13,17 +30,17 @@ const Home = () => {
           <ul className="product-list">
             {
               products.map(e => (
-                <li className="product-item col-3">
+                <li className="product-item col-3" key={e.id}>
                   <div className="product-wrap">
-                    <a href="#" className="product-image">
+                    <Link to="/product/e.id" className="product-image">
                       <img src={product1}/>
-                    </a>
+                    </Link>
                     <div className="product-card">
-                      <h4 className="product-name">Neck shoulder pain</h4>
+                      <h4 className="product-name">{e.name}</h4>
                       <p className="product-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna</p>
                     </div>
-                    <a href="" className="product-btn"><i className="fas fa-cart-plus"></i></a>
+                    <button onClick={(event)=>handleAddProduct(event, e.id)} className="product-btn"><i className="fas fa-cart-plus"></i></button>
                   </div>
                 </li>
                 )
