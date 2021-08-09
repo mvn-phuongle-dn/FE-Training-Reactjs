@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import product1 from '../../../assets/images/product1.jpg';
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../store/cartSlice'
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const pages = [1, 2, 3];
   const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(`https://reqres.in/api/products?page=${page}`).then(e => e.json())
@@ -20,6 +23,11 @@ const Products = () => {
     if(number >= pages[0] && number <= pages[pages.length-1]) {
       setPage(number);
     }
+  }
+
+  const handleAddProduct = (e, id) => {
+    e.preventDefault();
+    dispatch(addToCart(id));
   }
 
   return(
@@ -39,7 +47,7 @@ const Products = () => {
                     <p className="product-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                       tempor incididunt ut labore et dolore magna</p>
                   </div>
-                  <a href="" className="product-btn"><i className="fas fa-cart-plus"></i></a>
+                  <button onClick={(event)=>handleAddProduct(event, e.id)} className="product-btn"><i className="fas fa-cart-plus"></i></button>
                 </div>
               </li>
               )

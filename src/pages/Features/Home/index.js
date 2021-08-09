@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HeroBanner from '../../../components/HeroBanner';
 import product1 from '../../../assets/images/product1.jpg';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../store/cartSlice'
 import { Link } from "react-router-dom";
 
